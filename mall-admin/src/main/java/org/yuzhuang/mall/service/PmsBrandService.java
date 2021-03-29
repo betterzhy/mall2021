@@ -24,6 +24,7 @@ public interface PmsBrandService {
 
     /**
      *  更新品牌
+     *  涉及多个操作，需要事务
      */
     @Transactional
     int updateBrand(Long id, PmsBrandParam brand);

@@ -2,9 +2,10 @@ package org.yuzhuang.mall.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.yuzhuang.mall.api.CommonResult;
+import org.yuzhuang.mall.common.api.CommonResult;
 import org.yuzhuang.mall.dto.PmsBrandParam;
 import org.yuzhuang.mall.model.PmsBrand;
 import org.yuzhuang.mall.service.PmsBrandService;
@@ -19,15 +20,12 @@ import java.util.List;
 @RequestMapping("/pms/brands")
 @Api(tags = "商品品牌管理", description = "PmsBrandController")
 public class PmsBrandController {
-    private final PmsBrandService pmsBrandService;
-
-    public PmsBrandController(PmsBrandService pmsBrandService) {
-        this.pmsBrandService = pmsBrandService;
-    }
+    @Autowired
+    private PmsBrandService pmsBrandService;
 
     @GetMapping
     @ApiOperation("获取品牌列表")
-    private CommonResult<List<PmsBrand>> getBrands(@RequestParam(value = "keyword", required = false)  String keyword,
+    private CommonResult<List<PmsBrand>> getBrands(@RequestParam(value = "keyword", required = false) String keyword,
                                                    @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
                                                    @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         return CommonResult.success(pmsBrandService.getBrands(keyword, pageNum, pageSize));
